@@ -1,54 +1,45 @@
 <template>
   <v-app>
-    <div class="container">
-      {{ $store.state.todo.todoData }}
+    <!-- <div class="container"> -->
+      <!-- {{ $store.state.todo.todoData }} -->
       <v-list v-for="(item, index) in todoData" :key="index">
         <v-list-item>
           <v-list-item-icon>
-            <v-checkbox
-      v-model="checkbox"
-      label="Task"
-    ></v-checkbox>
+            <v-checkbox @click="addLineThrough(item.status, index)"
+            v-model="item.status"></v-checkbox>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title>{{ item }} </v-list-item-title>
+            <v-list-item-title :class="{'line-through': item.status}">{{ item }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <!-- <v-list-item>
-          <v-list-item-icon>
-    <v-checkbox
-      v-model="checkbox"
-      label="Task"
-    ></v-checkbox>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>1400 Main Street</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item> -->
       </v-list>
-    </div>
+    <!-- </div> -->
   </v-app>
 </template>
 
 <script>
-
-// import { mapState } from "vuex"
 
   export default {
     name: "ListComp",
     data () {
       return {
         text: '',
-        checkbox: true,
+        checkbox: false,
       }
     },
-    // computed: {
-    //   ...mapState(["todoData"]),
-    // },
+    methods: {
+
+      addLineThrough(status, index){
+        const payLoad = {
+          status: status,
+          index: index,
+        }
+          this.$store.dispatch('updateStatus', payLoad);
+      }
+    },
     computed:{
       todoData(){
-      return this.$store.state.todo.todoData
+      return this.$store.state.todo.todoData;
     }
     },
     mounted() {
@@ -58,3 +49,8 @@
   }
 </script>
 
+<style scoped>
+  .line-through{
+    text-decoration: line-through;
+  }
+</style>

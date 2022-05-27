@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-        <v-row justify="center">
+    <div class="in-container">
+        <v-row justify="end">
             <v-dialog
             v-model="dialog"
             persistent
@@ -27,6 +27,7 @@
                 md="4"
       >
             <v-textarea
+            v-model="inputTodo.content"
                 solo
                 name="input-7-4"
                 label="Make sure you you type what you want to add"
@@ -48,7 +49,7 @@
                 <v-btn
                     color="green darken-1"
                     text
-                    @click="dialog = false"
+                    @click="handleAddTask"
                 >
                     Add
                 </v-btn>
@@ -67,16 +68,21 @@ export default {
       return {
         dialog: false,
       }
+},
+computed: {
+    inputTodo() {
+        return this.$store.state.todo.inputTodo;
+    }
+},
+methods: {
+    handleAddTask(){
+        this.$store.dispatch('addTask', this.inputTodo);
+        this.dialog = true;
+    },
 }
 }
 </script>
 
 <style scoped>
-.container{
-    /* width: 200px; */
-    background-color: grey;
-    /* box-sizing: border-box; */
-    /* padding: 20px; */
-}
-</style>
 
+</style>

@@ -1,13 +1,14 @@
 <template>
   <v-app>
-    
-
-    <v-main>
-      <ListComp />
-    </v-main>
-    <v-main>
-      <ModalComp />
-    </v-main>
+      <div class="container">
+        <div class="d-flex justify-space-between">
+          <div class="day">Today</div>
+          <ModalComp />
+        </div>
+        <div class="main">
+          <ListComp />
+        </div>
+    </div>
   </v-app>
 </template>
 
@@ -23,9 +24,21 @@ export default {
     ListComp,
     ModalComp,
   },
+  methods: {
 
-  data: () => ({
-    //
-  }),
+  }
 };
 </script>
+
+<style>
+  .container{
+    box-sizing: border-box;
+    width: 100%;
+    margin :20px 0 20px;
+  }
+
+  .header{
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
