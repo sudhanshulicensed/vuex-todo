@@ -1,7 +1,5 @@
 <template>
   <v-app>
-    <!-- <div class="container"> -->
-      <!-- {{ $store.state.todo.todoData }} -->
       <v-list v-for="(item, index) in todoData" :key="index">
         <v-list-item>
           <v-list-item-icon>
@@ -9,11 +7,10 @@
             v-model="item.status"></v-checkbox>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title :class="{'line-through': item.status}">{{ item }}</v-list-item-title>
+            <v-list-item-title :class="{'line-through': item.status}">{{ item.content }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
-    <!-- </div> -->
   </v-app>
 </template>
 
@@ -31,15 +28,16 @@
 
       addLineThrough(status, index){
         const payLoad = {
-          status: status,
-          index: index,
+          status,
+          index,
         }
           this.$store.dispatch('updateStatus', payLoad);
       }
     },
     computed:{
       todoData(){
-      return this.$store.state.todo.todoData;
+        console.log('39 called ')
+      return this.$store.getters.getData;
     }
     },
     mounted() {

@@ -27,7 +27,7 @@
                 md="4"
       >
             <v-textarea
-            v-model="inputTodo.content"
+                v-model="inputTodo2.content"
                 solo
                 name="input-7-4"
                 label="Make sure you you type what you want to add"
@@ -67,17 +67,29 @@ export default {
     data () {
       return {
         dialog: false,
+        inputTodo2: {
+            status: false,
+            content: "",
+        }
       }
 },
-computed: {
-    inputTodo() {
-        return this.$store.state.todo.inputTodo;
-    }
-},
+// computed: {
+//     inputTodo() {
+//         return this.$store.state.todo.inputTodo;
+//     }
+// },
+// mounted() {
+//     if(this.inputTodo && Object.keys(this.inputTodo).length) {
+
+//         this.inputTodo2 = this.inputTodo
+//     }
+// },
 methods: {
     handleAddTask(){
-        this.$store.dispatch('addTask', this.inputTodo);
-        this.dialog = true;
+        // console.log(this.inputTodo, this.$store.state.todo.todoData)
+        this.$store.dispatch('addTask', {data: this.inputTodo2});
+        this.inputTodo2.content = ""
+        this.dialog = false;
     },
 }
 }

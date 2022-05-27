@@ -1,37 +1,32 @@
 export default {
     state: {
-        todoData: [{
-            status: false,
-            content: "Start making a presentation",
-        },{
-            status: false,
-            content: "Start preparing for Interview",
-        }],
-        inputTodo: {
-            status: false,
-            content: "",
-        }
+        todoData: [],
     },
     getters: {
-
+      getData(state) { return state.todoData}
     },
     mutations: {
         firstCommit(state, payLoad){
-            state.todoData.push(payLoad);
+            // console.log(state.todoData, payLoad)
+            let arr = JSON.parse(JSON.stringify(state.todoData))
+            arr.push(payLoad.data)
+            state.todoData = JSON.parse(JSON.stringify(arr))
+            console.log('12 called at store ', state.todoData, this.todoData)
         },
         checkIfChecked(state, payLoad) {
-            console.log(state, payLoad)
+            // console.log(state, payLoad)
             state.todoData[payLoad.index].status = payLoad.status;
         }
     },
     actions: {
         addTask({ commit }, payLoad){
-            console.log(payLoad);
+            // console.log(payLoad);
+            console.log('22 called ')
             commit("firstCommit", payLoad)
         },
         updateStatus({commit}, payLoad) {
-            console.log(payLoad);
+            // console.log(payLoad);
             commit("checkIfChecked", payLoad)
-        }
+        },
     }
 }
